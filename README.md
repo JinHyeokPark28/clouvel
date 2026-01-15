@@ -113,7 +113,7 @@ init_docs로 docs 폴더 만들어줘
 | **v0.4.0** | 컨텍스트 유지 - 세션 요약 저장/복원, handoff 생성 |
 | **v0.5.0** | 에러 학습 - 에러 패턴 기록/검색 |
 | **v1.0.0** | 안정화 + 웹 대시보드 + Boris 검증 통합 |
-| **v2.0.0** | shovel-setup 통합 (미정) |
+| **v2.0.0** | shovel-setup 통합 - 완전한 바이브코딩 시스템 (미정) |
 
 자세한 내용: [ROADMAP.md](https://github.com/JinHyeokPark28/clouvel/blob/main/ROADMAP.md)
 

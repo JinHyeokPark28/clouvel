@@ -75,8 +75,10 @@
 - [ ] API 안정화
 
 ### v2.0.0 (미정)
-**통합**
-- [ ] shovel-setup 통합
+**shovel-setup 통합**
+- [ ] shovel-setup = Boris 워크플로우 기반 개발 환경 설정 도구
+- [ ] CLAUDE.md 템플릿 + 슬래시 커맨드 + 병렬 터미널 설정
+- [ ] Clouvel(프로세스 강제) + shovel-setup(환경 설정) = 완전한 바이브코딩 시스템
 
 ---
 

@@ -32,7 +32,10 @@
       "Bash(gh auth status:*)",
       "Bash(/mnt/c/Program Files/Git/cmd/git.exe push)",
       "Bash(/mnt/c/Program Files/Git/cmd/git.exe push origin v0.3.2)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(git -C D:/clouvel add:*)",
+      "Bash(git -C D:/clouvel commit -m \"$\\(cat <<''EOF''\nAdd shovel-setup details to v2.0.0 roadmap\n\nCo-Authored-By: Claude Opus 4.5 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git -C D:/clouvel push)"
     ]
   }
 }
