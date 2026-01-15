@@ -1,7 +1,7 @@
 # Clouvel 로드맵
 
 ## 현재 버전
-- MCP 서버: PyPI v0.3.1
+- MCP 서버: PyPI v0.3.2
 - VS Code 확장: v0.10.2
 - Cursor 확장: v0.10.2
 
@@ -84,6 +84,7 @@
 
 | 버전 | 날짜 | 변경사항 |
 |------|------|----------|
+| 0.3.2 | 2026-01-16 | GitHub Actions 추가 (CI/CD 자동화) |
 | 0.3.1 | 2026-01-16 | wheel 패키징 버그 수정 (모듈 누락 문제) |
 | 0.3.0 | 2026-01-15 | init_docs, get_setup_guide 추가 |
 | 0.2.0 | 2026-01-15 | can_code (코딩 차단), get_prd_template, write_prd_section 추가 |
