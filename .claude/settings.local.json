@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(sudo apt install:*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "WebSearch",
+      "Bash(./venv/bin/clouvel:*)",
+      "Bash(./venv/bin/python:*)",
+      "Bash(./venv/bin/twine upload:*)",
+      "Bash(chmod:*)",
+      "Bash(npx vsce publish)",
+      "Bash(pip3 install:*)",
+      "Bash(pipx run build:*)",
+      "Bash(/mnt/c/Users/User/AppData/Local/Programs/Python/Python*/python.exe)",
+      "Bash(py -m build:*)",
+      "Bash(PYTHONIOENCODING=utf-8 /mnt/c/Users/User/AppData/Local/Programs/Python/Python*/python.exe -m twine:*)",
+      "Bash(npm run compile:*)",
+      "Bash(npx vsce package)",
+      "Bash(python -m build:*)",
+      "Bash(unzip:*)",
+      "Bash(/mnt/c/Users/User/AppData/Local/Programs/Python/Python310/python.exe -m pip install:*)",
+      "Bash(/mnt/c/Users/User/AppData/Local/Programs/Python/Python310/python.exe -m build:*)",
+      "Bash(/mnt/c/Users/User/AppData/Local/Programs/Python/Python310/python.exe -m twine upload:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git branch:*)",
+      "Bash(git commit:*)",
+      "Bash(git remote add:*)",
+      "Bash(git push:*)",
+      "Bash(gh auth status:*)",
+      "Bash(/mnt/c/Program Files/Git/cmd/git.exe push)",
+      "Bash(/mnt/c/Program Files/Git/cmd/git.exe push origin v0.3.2)",
+      "WebFetch(domain:github.com)"
+    ]
+  }
+}
