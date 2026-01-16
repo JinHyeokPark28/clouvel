@@ -29,9 +29,9 @@ dependencies = [
 clouvel = "clouvel:main"
 
 [project.urls]
-Homepage = "https://github.com/JinHyeokPark28/clouvel"
-Repository = "https://github.com/JinHyeokPark28/clouvel"
-Issues = "https://github.com/JinHyeokPark28/clouvel/issues"
+Homepage = "https://github.com/Whitening-Sinabro/clouvel"
+Repository = "https://github.com/Whitening-Sinabro/clouvel"
+Issues = "https://github.com/Whitening-Sinabro/clouvel/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/clouvel"]
