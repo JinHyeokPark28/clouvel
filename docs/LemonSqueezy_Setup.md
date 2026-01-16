@@ -124,7 +124,7 @@ clouvel-pro-v1.x.x.zip
 
 | 설정 | 값 |
 |------|-----|
-| **Success URL** | `https://jinhyeokpark28.github.io/clouvel/success?license_key={license_key}` |
+| **Success URL** | `https://whitening-sinabro.github.io/clouvel/success?license_key={license_key}` |
 
 ---
 
