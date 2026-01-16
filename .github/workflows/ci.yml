@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.11', '3.12']
+        python-version: ['3.10', '3.11', '3.12']
 
     steps:
       - uses: actions/checkout@v4
@@ -25,11 +25,10 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .
-          pip install pytest
+          pip install pytest pytest-asyncio
 
-      - name: Test import
-        run: |
-          python -c "from clouvel import main; print('Import OK')"
+      - name: Run tests
+        run: pytest tests/ -v
 
       - name: Build check
         run: |

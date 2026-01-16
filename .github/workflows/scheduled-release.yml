@@ -1,0 +1,101 @@
+name: Scheduled PyPI Release
+
+on:
+  schedule:
+    # v0.5.0 - 1월 17일 09:00 KST (00:00 UTC)
+    - cron: '0 0 17 1 *'
+    # v0.6.0 - 1월 20일 09:00 KST
+    - cron: '0 0 20 1 *'
+    # v0.7.0 - 1월 23일 09:00 KST
+    - cron: '0 0 23 1 *'
+    # v0.8.0 - 1월 26일 09:00 KST
+    - cron: '0 0 26 1 *'
+    # v1.0.0 - 1월 29일 09:00 KST
+    - cron: '0 0 29 1 *'
+
+  # 수동 실행
+  workflow_dispatch:
+    inputs:
+      version:
+        description: '배포할 버전 (예: 0.5.0)'
+        required: true
+        type: string
+
+env:
+  PYTHON_VERSION: '3.11'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine pytest pytest-asyncio
+
+      - name: Get version from pyproject.toml
+        id: version
+        run: |
+          VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Deploying version: $VERSION"
+
+      - name: Run tests
+        run: |
+          python -m pytest tests/ -v
+
+      - name: Build package
+        run: python -m build
+
+      - name: Create Git tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a "v${{ steps.version.outputs.version }}" -m "Release v${{ steps.version.outputs.version }}"
+          git push origin "v${{ steps.version.outputs.version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          password: ${{ secrets.PYPI_API_TOKEN }}
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: v${{ steps.version.outputs.version }}
+          name: Clouvel v${{ steps.version.outputs.version }}
+          body: |
+            ## Clouvel v${{ steps.version.outputs.version }}
+
+            ### 설치
+            ```bash
+            pip install clouvel==${{ steps.version.outputs.version }}
+            # 또는
+            uvx clouvel
+            ```
+
+            ### 변경사항
+            [CHANGELOG 참조](https://github.com/JinHyeokPark28/clouvel/blob/main/CHANGELOG.md)
+
+            ---
+            자동 배포 by GitHub Actions
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
