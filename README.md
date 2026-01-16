@@ -12,7 +12,7 @@ An MCP server that enforces the vibe-coding process.
 
 ## 현재 버전
 
-- MCP 서버: v0.3.5
+- MCP 서버: v0.4.0
 - VS Code 확장: v0.10.2
 - Cursor 확장: v0.10.2
 
@@ -64,11 +64,55 @@ init_docs로 docs 폴더 만들어줘
 - DATABASE.md
 - VERIFICATION.md
 
+### init_clouvel - 온보딩 (v0.4.0 NEW)
+
+```
+clouvel 시작하고 싶어
+```
+
+플랫폼 선택 → 맞춤 설정 가이드:
+- Claude Desktop → 바로 사용 가능
+- VS Code/Cursor → 확장 설치 안내
+- Claude Code (CLI) → 자동 설정
+
+### setup_cli - CLI 강제 설정 (v0.4.0 NEW)
+
+```
+setup_cli로 CLI 설정해줘 (level: strict)
+```
+
+Claude Code에서 "PRD 없으면 코딩 금지" 강제:
+- `.claude/hooks.json` - Edit/Write 전 경고
+- `CLAUDE.md` - 규칙 자동 추가
+- `.git/hooks/pre-commit` - 커밋 차단
+
+강제 수준:
+| Level | 설명 |
+|-------|------|
+| `remind` | 경고만 출력 |
+| `strict` | 커밋 차단 (추천) |
+| `full` | Hooks + 커밋 차단 |
+
+## CLI 명령어 (v0.4.0 NEW)
+
+```bash
+# 인터랙티브 설정
+clouvel init
+
+# 바로 설정 (non-interactive)
+clouvel init -p /path/to/project -l strict
+
+# MCP 서버 실행 (Claude가 사용)
+clouvel
+```
+
 ## 전체 도구 목록
 
 | 도구 | 설명 |
 |------|------|
 | `can_code` | **코딩 가능 여부 확인** - 핵심 기능 |
+| `init_clouvel` | **온보딩** - 플랫폼별 맞춤 설정 (NEW) |
+| `setup_cli` | **CLI 강제 설정** - hooks, pre-commit (NEW) |
 | `init_docs` | docs 폴더 초기화 + 템플릿 생성 |
 | `scan_docs` | docs 폴더 파일 목록 |
 | `analyze_docs` | 필수 문서 체크, 빠진 거 알려줌 |
@@ -114,13 +158,11 @@ init_docs로 docs 폴더 만들어줘
 
 | 버전 | 목표 |
 |------|------|
-| **v0.1.0** ✅ | MVP - can_code, scan_docs, init_docs, get_analytics 등 10개 도구 |
-| **v0.2.0** | 문서 상태 추적 - freshness 체크, PROGRESS.md 자동화 |
-| **v0.3.0** | 문서-코드 동기화 - Git 커밋 후 문서 미수정 감지 |
-| **v0.4.0** | 컨텍스트 유지 - 세션 요약 저장/복원, handoff 생성 |
-| **v0.5.0** | 에러 학습 - 에러 패턴 기록/검색 |
+| **v0.1.0** ✅ | MVP - can_code, scan_docs, init_docs 등 10개 도구 |
+| **v0.4.0** ✅ | CLI 온보딩 - init_clouvel, setup_cli, clouvel init 명령어 |
+| **v0.5.0** | 컨텍스트 유지 - 세션 요약 저장/복원, handoff 생성 |
+| **v0.6.0** | 문서-코드 동기화 - Git 커밋 후 문서 미수정 감지 |
 | **v1.0.0** | 안정화 + 웹 대시보드 + Boris 검증 통합 |
-| **v2.0.0** | shovel-setup 통합 - 완전한 바이브코딩 시스템 (미정) |
 
 자세한 내용: [ROADMAP.md](https://github.com/JinHyeokPark28/clouvel/blob/main/ROADMAP.md)
 
