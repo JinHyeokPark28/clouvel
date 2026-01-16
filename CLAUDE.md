@@ -1,47 +1,51 @@
 # Clouvel
 
-바이브코딩 프로세스를 강제하는 API + Agent 도구
+> PRD 없으면 코딩 없다.
 
-## 기술 스택
-- Python 3.11+
-- FastAPI
-- Uvicorn (포트 8000)
+---
 
-## 명령어
+## 개요
+
+Clouvel은 바이브코딩 프로세스를 강제하는 MCP 서버입니다.
+
+문서 없이 코딩 시작? 차단됩니다.
+
+---
+
+## 기본 사용법
+
 ```bash
-# 서버 실행
-uvicorn src.main:app --reload --port 8000
+# 설치
+pip install clouvel
 
-# 테스트
-pytest tests/
+# Claude Code에서 사용
+claude --mcp clouvel
 ```
 
-## 프로젝트 구조
-```
-src/
-├── main.py          # FastAPI 앱
-├── api/             # 라우터
-├── services/        # 비즈니스 로직
-└── models/          # Pydantic 모델
-```
+---
 
-## 핵심 기능
-1. /docs/scan - 프로젝트 docs 스캔
-2. /docs/analyze - 빠진 것 감지 (PRD, 검증 등)
-3. /guide/prd - PRD 작성 가이드
-4. /guide/verify - Boris 검증 체크리스트
+## 핵심 도구
 
-## 규칙
-- 타입 힌트 필수
-- Pydantic 모델 사용
-- 에러는 HTTPException으로 처리
+| 도구 | 설명 |
+|------|------|
+| `can_code` | 코딩 가능 여부 검사 |
+| `get_progress` | 진행 상황 확인 |
+| `get_goal` | 프로젝트 목표 리마인드 |
 
+---
 
-## Clouvel 규칙 (자동 생성)
+## Pro 버전
 
-> 이 규칙은 Clouvel이 자동으로 추가했습니다.
+더 강력한 기능이 필요하다면 [Clouvel Pro](https://whitening-sinabro.github.io/clouvel/)를 확인하세요.
 
-### 필수 준수 사항
-1. **코드 작성 전 문서 체크**: Edit/Write 도구 사용 전 반드시 `can_code` 도구를 먼저 호출
-2. **can_code 실패 시 코딩 금지**: 필수 문서가 없으면 PRD 작성부터
-3. **PRD가 법**: docs/PRD.md에 없는 기능은 구현하지 않음
+- Shovel 워크플로우 자동 설치
+- Gate 시스템 (lint → test → build)
+- Context 관리 도구
+- 검증 프로토콜
+
+---
+
+## 링크
+
+- [GitHub](https://github.com/Whitening-Sinabro/clouvel)
+- [Landing Page](https://whitening-sinabro.github.io/clouvel/)
