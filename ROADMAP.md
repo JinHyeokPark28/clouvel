@@ -40,13 +40,14 @@
 ## 버전별 로드맵
 
 ### v0.1.0 ✅ (현재)
-**MVP - 9개 도구**
+**MVP - 10개 도구**
 - [x] can_code - 코딩 시작 가능 여부 확인
 - [x] scan_docs - 프로젝트 문서 스캔
 - [x] init_docs - 문서 구조 초기화
 - [x] get_prd_template - PRD 상세 템플릿
 - [x] write_prd_section - 섹션별 PRD 작성
 - [x] get_setup_guide - 설정 가이드
+- [x] get_analytics - 도구 사용량 통계 (로컬 저장)
 
 ### v0.2.0
 **문서 상태 추적**

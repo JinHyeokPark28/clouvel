@@ -5,6 +5,8 @@ from mcp.server import Server
 from mcp.server.stdio import stdio_server
 from mcp.types import Tool, TextContent
 
+from .analytics import log_tool_call, get_stats, format_stats
+
 server = Server("clouvel")
 
 # 필수 문서 정의
@@ -123,11 +125,30 @@ async def list_tools() -> list[Tool]:
                 }
             }
         ),
+        Tool(
+            name="get_analytics",
+            description="Clouvel 도구 사용량 통계. 어떤 도구가 얼마나 쓰였는지 확인.",
+            inputSchema={
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "description": "프로젝트 경로 (기본: 현재 디렉토리)"},
+                    "days": {"type": "integer", "description": "조회 기간 (기본: 30일)"}
+                }
+            }
+        ),
     ]
 
 
 @server.call_tool()
 async def call_tool(name: str, arguments: dict) -> list[TextContent]:
+    # Analytics: 도구 호출 기록 (get_analytics 제외 - 무한 루프 방지)
+    project_path = arguments.get("path", None)
+    if name != "get_analytics":
+        try:
+            log_tool_call(name, success=True, project_path=project_path)
+        except Exception:
+            pass  # analytics 실패해도 도구는 동작해야 함
+
     if name == "can_code":
         return await _can_code(arguments.get("path", ""))
     elif name == "scan_docs":
@@ -155,6 +176,11 @@ async def call_tool(name: str, arguments: dict) -> list[TextContent]:
         return await _get_verify_checklist()
     elif name == "get_setup_guide":
         return await _get_setup_guide(arguments.get("platform", "all"))
+    elif name == "get_analytics":
+        return await _get_analytics(
+            arguments.get("path", None),
+            arguments.get("days", 30)
+        )
     else:
         return [TextContent(type="text", text=f"Unknown tool: {name}")]
 
@@ -1192,6 +1218,16 @@ claude
         result = guides.get(platform, "알 수 없는 플랫폼입니다.")
 
     return [TextContent(type="text", text=result)]
+
+
+async def _get_analytics(path: str | None, days: int) -> list[TextContent]:
+    """사용량 통계 조회"""
+    try:
+        stats = get_stats(project_path=path, days=days)
+        result = format_stats(stats)
+        return [TextContent(type="text", text=result)]
+    except Exception as e:
+        return [TextContent(type="text", text=f"통계 조회 실패: {e}")]
 
 
 async def run_server():
