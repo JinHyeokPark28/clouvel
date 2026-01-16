@@ -12,7 +12,7 @@ An MCP server that enforces the vibe-coding process.
 
 ## 현재 버전
 
-- MCP 서버: v0.3.4
+- MCP 서버: v0.3.5
 - VS Code 확장: v0.10.2
 - Cursor 확장: v0.10.2
 
