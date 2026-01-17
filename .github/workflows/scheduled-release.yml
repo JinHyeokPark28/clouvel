@@ -40,11 +40,6 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install build twine pytest pytest-asyncio
-
       - name: Determine version
         id: version
         run: |
@@ -76,6 +71,12 @@ jobs:
             echo "Release file not found: $RELEASE_FILE"
             exit 1
           fi
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine pytest pytest-asyncio
+          pip install -e .
 
       - name: Run tests
         run: |
