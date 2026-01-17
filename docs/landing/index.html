@@ -4,20 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clouvel - PRD 없으면 코딩 없다</title>
-    <meta name="description" content="바이브코딩 프로세스를 강제하는 MCP 서버. Claude Code와 통합하여 문서 기반 개발을 자동화합니다.">
+    <meta name="description" content="AI가 요구사항을 멋대로 압축하는 순간, PRD-First 게이트로 막는다. Claude Code와 통합하여 문서 기반 개발을 자동화합니다.">
 
     <!-- Open Graph / Social -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://whitening-sinabro.github.io/clouvel/">
     <meta property="og:title" content="Clouvel - PRD 없으면 코딩 없다">
-    <meta property="og:description" content="바이브코딩 프로세스를 강제하는 MCP 서버. 문서 먼저, 코드 나중.">
+    <meta property="og:description" content="AI가 요구사항을 멋대로 압축하는 순간, PRD-First 게이트로 막는다.">
     <meta property="og:image" content="https://whitening-sinabro.github.io/clouvel/og-image.png">
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://whitening-sinabro.github.io/clouvel/">
     <meta name="twitter:title" content="Clouvel - PRD 없으면 코딩 없다">
-    <meta name="twitter:description" content="바이브코딩 프로세스를 강제하는 MCP 서버. 문서 먼저, 코드 나중.">
+    <meta name="twitter:description" content="AI가 요구사항을 멋대로 압축하는 순간, PRD-First 게이트로 막는다.">
     <meta name="twitter:image" content="https://whitening-sinabro.github.io/clouvel/og-image.png">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,6 +63,16 @@
             background: rgba(15, 23, 42, 0.8);
             backdrop-filter: blur(4px);
         }
+        .tab-btn.active {
+            background-color: #0EA5E9;
+            color: white;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body class="bg-warm-white text-dark-slate font-sans antialiased">
@@ -70,549 +80,281 @@
     <nav class="fixed top-0 left-0 right-0 z-50 bg-warm-white/90 backdrop-blur-md border-b border-slate-200/50">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
             <div class="text-xl font-bold text-dark-slate">Clouvel</div>
-            <div class="flex items-center gap-6">
-                <a href="#features" class="text-sm text-slate-600 hover:text-dark-slate transition">Features</a>
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-6">
+                <a href="#how-it-works" class="text-sm text-slate-600 hover:text-dark-slate transition">How it works</a>
                 <a href="docs.html" class="text-sm text-slate-600 hover:text-dark-slate transition">Docs</a>
                 <a href="#pricing" class="text-sm text-slate-600 hover:text-dark-slate transition">Pricing</a>
-                <a href="#contact" class="text-sm text-slate-600 hover:text-dark-slate transition">Contact</a>
+                <a href="#faq" class="text-sm text-slate-600 hover:text-dark-slate transition">FAQ</a>
                 <a href="https://github.com/Whitening-Sinabro/clouvel" target="_blank" class="text-sm text-slate-600 hover:text-dark-slate transition">GitHub</a>
-                <a href="#pricing" class="text-sm bg-accent text-white px-4 py-2 rounded-full hover:bg-accent-dark transition">Get Started</a>
+                <a href="#getting-started" class="text-sm bg-accent text-white px-4 py-2 rounded-full hover:bg-accent-dark transition">Get Started</a>
             </div>
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-600 hover:text-dark-slate">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-warm-white border-t border-slate-200/50 px-6 py-4 space-y-3">
+            <a href="#how-it-works" class="block text-sm text-slate-600 hover:text-dark-slate transition py-2">How it works</a>
+            <a href="docs.html" class="block text-sm text-slate-600 hover:text-dark-slate transition py-2">Docs</a>
+            <a href="#pricing" class="block text-sm text-slate-600 hover:text-dark-slate transition py-2">Pricing</a>
+            <a href="#faq" class="block text-sm text-slate-600 hover:text-dark-slate transition py-2">FAQ</a>
+            <a href="https://github.com/Whitening-Sinabro/clouvel" target="_blank" class="block text-sm text-slate-600 hover:text-dark-slate transition py-2">GitHub</a>
+            <a href="#getting-started" class="block text-sm bg-accent text-white px-4 py-3 rounded-xl text-center hover:bg-accent-dark transition mt-2">Get Started</a>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <section class="pt-32 pb-16 px-6">
-        <div class="max-w-6xl mx-auto">
-            <!-- Hero Text - Centered -->
-            <div class="text-center max-w-4xl mx-auto mb-12">
-                <div class="inline-flex items-center gap-2 bg-accent/10 text-accent text-sm px-4 py-2 rounded-full mb-6">
-                    <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-                    MCP Server for Claude Code
-                </div>
-                <h1 class="text-5xl lg:text-7xl font-bold leading-[1.1] mb-6">
-                    PRD 없으면<br>
-                    <span class="accent-text">코딩 없다.</span>
-                </h1>
-                <p class="text-xl text-slate-600 mb-4 leading-relaxed">
-                    Claude Code가 멋대로 코딩하는 거, <strong class="text-dark-slate">이제 끝.</strong>
-                </p>
-                <p class="text-lg text-slate-500 mb-8">
-                    문서 없이 코딩 시작? 차단됩니다. 그게 전부입니다.
-                </p>
-                <div class="flex flex-wrap gap-4 justify-center">
-                    <a href="https://github.com/Whitening-Sinabro/clouvel" target="_blank" class="cta-pulse inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-medium hover:bg-accent-dark transition text-lg">
-                        무료로 시작하기
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-                    </a>
-                    <a href="#pricing" class="inline-flex items-center gap-2 border-2 border-dark-slate/20 px-8 py-4 rounded-full font-medium hover:border-dark-slate/40 transition text-lg">
-                        Pro는 $29부터
-                    </a>
-                </div>
+    <!-- 1. Hero -->
+    <section class="pt-32 pb-12 px-6">
+        <div class="max-w-4xl mx-auto text-center">
+            <div class="inline-flex items-center gap-2 bg-accent/10 text-accent text-sm px-4 py-2 rounded-full mb-6">
+                <span class="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
+                MCP Server for Claude Code
             </div>
-            <!-- Terminal Demo - Full Width -->
-            <div class="code-block rounded-2xl p-8 text-base font-mono shadow-2xl max-w-3xl mx-auto">
-                <div class="flex items-center gap-2 mb-6">
-                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    <span class="text-slate-500 text-sm ml-2">terminal</span>
-                </div>
-                <div class="space-y-3 text-slate-300">
-                    <p><span class="text-slate-500">$</span> claude "로그인 기능 만들어줘"</p>
-                    <p class="text-yellow-400">⚠ can_code 검사 중...</p>
-                    <p class="text-slate-600">────────────────────────────────</p>
-                    <p><span class="text-red-400">✗</span> PRD.md <span class="text-slate-500">not found</span></p>
-                    <p><span class="text-red-400">✗</span> Architecture.md <span class="text-slate-500">not found</span></p>
-                    <p class="text-slate-600">────────────────────────────────</p>
-                    <p class="text-red-400 font-bold text-lg">→ 코딩 차단됨</p>
-                    <p class="text-slate-500 text-sm mt-4">💡 먼저 docs/ 폴더에 PRD를 작성하세요.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Before/After Comparison -->
-    <section class="py-20 px-6 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">Before vs After</h2>
-                <p class="text-slate-600 text-lg">같은 요청, 다른 결과</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Before -->
-                <div class="bg-red-50 border-2 border-red-200 rounded-2xl p-8">
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="text-2xl">❌</span>
-                        <span class="font-bold text-xl text-red-700">Without Clouvel</span>
-                    </div>
-                    <div class="space-y-4 text-slate-700">
-                        <div class="flex items-start gap-3">
-                            <span class="text-red-500 mt-1">✗</span>
-                            <p>"로그인 만들어줘" → <strong>바로 코딩 시작</strong></p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-red-500 mt-1">✗</span>
-                            <p>스펙 없이 기능 추가됨</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-red-500 mt-1">✗</span>
-                            <p>껍데기만 있는 코드</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-red-500 mt-1">✗</span>
-                            <p>롤백 불가, 뭘 고쳤는지 모름</p>
-                        </div>
-                        <div class="mt-6 pt-6 border-t border-red-200">
-                            <p class="text-red-700 font-bold text-lg">→ 2-3일 디버깅 지옥</p>
-                        </div>
-                    </div>
-                </div>
-                <!-- After -->
-                <div class="bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-8">
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="text-2xl">✅</span>
-                        <span class="font-bold text-xl text-emerald-700">With Clouvel</span>
-                    </div>
-                    <div class="space-y-4 text-slate-700">
-                        <div class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-1">✓</span>
-                            <p>"로그인 만들어줘" → <strong>PRD 먼저 요청</strong></p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-1">✓</span>
-                            <p>문서 기반 체계적 개발</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-1">✓</span>
-                            <p>Gate 시스템으로 품질 보장</p>
-                        </div>
-                        <div class="flex items-start gap-3">
-                            <span class="text-emerald-500 mt-1">✓</span>
-                            <p>스펙 기반, 롤백 가능</p>
-                        </div>
-                        <div class="mt-6 pt-6 border-t border-emerald-200">
-                            <p class="text-emerald-700 font-bold text-lg">→ 3시간 만에 완료</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Solution -->
-    <section class="py-20 px-6">
-        <div class="max-w-6xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-                <div>
-                    <h2 class="text-3xl font-bold mb-6">해결책: 문서 먼저</h2>
-                    <p class="text-slate-600 text-lg mb-8">
-                        PRD 없이 코딩 시작? <strong class="text-slate-900">차단됩니다.</strong><br>
-                        문서 완성해야 코딩 허용. 그게 전부입니다.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-semibold text-sm">1</div>
-                            <span class="text-lg">PRD 작성</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-semibold text-sm">2</div>
-                            <span class="text-lg">Clouvel이 문서 검증</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-full bg-accent text-white flex items-center justify-center font-semibold text-sm">3</div>
-                            <span class="text-lg">코딩 허용 → 체계적 개발</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="code-block rounded-2xl p-6 text-sm font-mono">
-                    <div class="flex items-center gap-2 mb-4">
-                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
-                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
-                    <div class="space-y-2 text-slate-300">
-                        <p class="text-slate-500">// can_code 호출 결과</p>
-                        <p><span class="text-green-400">✓</span> PRD.md</p>
-                        <p><span class="text-green-400">✓</span> Architecture.md</p>
-                        <p><span class="text-green-400">✓</span> API.md</p>
-                        <p class="text-slate-500 mt-4">──────────────────────────</p>
-                        <p class="text-green-400 font-semibold">→ 코딩 가능</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Social Proof - Impact Metrics -->
-    <section class="py-20 px-6 bg-dark-slate text-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <p class="text-accent text-sm font-medium mb-2">실제 프로젝트 기준</p>
-                <h2 class="text-3xl font-bold">내 프로젝트에서 이렇게 바뀌었습니다</h2>
-            </div>
-            <div class="grid md:grid-cols-3 gap-8 mb-12">
-                <!-- Metric 1 -->
-                <div class="bg-slate-800/50 rounded-2xl p-8 text-center">
-                    <p class="text-slate-400 text-sm mb-4">디버깅 시간</p>
-                    <div class="flex items-center justify-center gap-4 mb-4">
-                        <span class="text-3xl text-slate-500 line-through">2-3일</span>
-                        <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                        <span class="text-4xl font-bold text-accent">3시간</span>
-                    </div>
-                    <p class="text-emerald-400 font-semibold">~95% 감소</p>
-                </div>
-                <!-- Metric 2 -->
-                <div class="bg-slate-800/50 rounded-2xl p-8 text-center">
-                    <p class="text-slate-400 text-sm mb-4">스코프 크립</p>
-                    <div class="mb-4">
-                        <span class="text-5xl font-bold text-accent">0건</span>
-                    </div>
-                    <p class="text-emerald-400 font-semibold">AI 멋대로 기능 추가 100% 차단</p>
-                </div>
-                <!-- Metric 3 -->
-                <div class="bg-slate-800/50 rounded-2xl p-8 text-center">
-                    <p class="text-slate-400 text-sm mb-4">버전 릴리즈 속도</p>
-                    <div class="mb-4">
-                        <span class="text-5xl font-bold text-accent">4x</span>
-                    </div>
-                    <p class="text-emerald-400 font-semibold">1-2시간에 버전 하나</p>
-                </div>
-            </div>
-            <p class="text-center text-slate-500 text-xs max-w-2xl mx-auto">
-                * 상기 수치는 제 개인 프로젝트 기준이며, 프로젝트 환경에 따라 다를 수 있습니다.
-                Clouvel은 특정 결과를 보장하지 않습니다.
+            <h1 class="text-4xl md:text-5xl lg:text-7xl font-bold leading-[1.1] mb-6">
+                PRD 없으면,<br>
+                <span class="accent-text">코딩 없다.</span>
+            </h1>
+            <p class="text-lg md:text-xl text-slate-600 mb-3 leading-relaxed">
+                AI가 맥락을 "멋대로 압축"해서 중요한 요구사항을 생략하는 순간이 있다.
             </p>
+            <p class="text-base md:text-lg text-slate-500 mb-8">
+                Clouvel은 <strong class="text-dark-slate">PRD-First 게이트</strong>로 그걸 막는다. PRD 없으면 시작도 안 됨. 통과하면 코딩.
+            </p>
+            <div class="flex flex-wrap gap-3 md:gap-4 justify-center">
+                <a href="#getting-started" class="cta-pulse inline-flex items-center gap-2 bg-accent text-white px-6 py-3 md:px-8 md:py-4 rounded-full font-medium hover:bg-accent-dark transition text-base md:text-lg">
+                    Get started
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#demo" class="inline-flex items-center gap-2 border-2 border-dark-slate/20 px-6 py-3 md:px-8 md:py-4 rounded-full font-medium hover:border-dark-slate/40 transition text-base md:text-lg">
+                    See demo
+                </a>
+            </div>
         </div>
     </section>
 
-    <!-- Why Clouvel - Differentiation -->
-    <section class="py-20 px-6 bg-warm-white">
+    <!-- 2. Works with -->
+    <section class="py-8 px-6 border-t border-b border-slate-200/50 bg-white">
         <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4">왜 Clouvel인가?</h2>
-                <p class="text-slate-600 text-lg">다른 AI 도구와의 차이</p>
-            </div>
-            <div class="space-y-4 mb-12">
-                <div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-200">
-                    <span class="text-2xl">❌</span>
-                    <div>
-                        <p class="font-medium">ChatGPT / Claude</p>
-                        <p class="text-slate-500 text-sm">시키면 바로 코딩 시작. 문서 없이도 OK.</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-200">
-                    <span class="text-2xl">❌</span>
-                    <div>
-                        <p class="font-medium">Cursor / Copilot</p>
-                        <p class="text-slate-500 text-sm">제어 없이 자동완성. 뭘 추가하는지 모름.</p>
-                    </div>
-                </div>
-                <div class="flex items-center gap-4 p-4 bg-accent/10 rounded-xl border-2 border-accent">
-                    <span class="text-2xl">✅</span>
-                    <div>
-                        <p class="font-bold text-accent">Clouvel</p>
-                        <p class="text-slate-700">PRD 없으면 차단. 문서 완성해야 코딩 허용. <strong>그게 전부.</strong></p>
-                    </div>
+            <div class="flex flex-wrap items-center justify-center gap-6">
+                <span class="text-slate-500 text-sm font-medium">Works with:</span>
+                <div class="flex flex-wrap items-center gap-4">
+                    <span class="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-full text-sm font-medium">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                        CLI
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-full text-sm font-medium">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M20 3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-9 14H4v-2h7v2zm9-4H4v-2h16v2zm0-4H4V7h16v2z"/></svg>
+                        Claude Desktop
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-full text-sm font-medium">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M23.15 2.587L18.21.21a1.494 1.494 0 0 0-1.705.29l-9.46 8.63-4.12-3.128a.999.999 0 0 0-1.276.057L.327 7.261A1 1 0 0 0 .326 8.74L3.899 12 .326 15.26a1 1 0 0 0 .001 1.479L1.65 17.94a.999.999 0 0 0 1.276.057l4.12-3.128 9.46 8.63a1.492 1.492 0 0 0 1.704.29l4.942-2.377A1.5 1.5 0 0 0 24 20.06V3.939a1.5 1.5 0 0 0-.85-1.352zm-5.146 14.861L10.826 12l7.178-5.448v10.896z"/></svg>
+                        VS Code
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-slate-100 px-4 py-2 rounded-full text-sm font-medium">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm0 22C6.486 22 2 17.514 2 12S6.486 2 12 2s10 4.486 10 10-4.486 10-10 10zm-1-6h2v2h-2v-2zm0-10h2v8h-2V6z"/></svg>
+                        Cursor
+                    </span>
                 </div>
             </div>
-            <div class="bg-dark-slate text-white rounded-2xl p-8 text-center">
-                <p class="text-xl leading-relaxed">
-                    "AI를 더 똑똑하게 만드는 게 아니라,<br>
-                    <span class="text-accent font-bold">AI가 멋대로 못하게 막는 겁니다.</span>"
+            <p class="text-center text-slate-500 text-sm mt-4">쓰는 툴에 맞춰 같은 규칙(문서 먼저)을 강제합니다.</p>
+        </div>
+    </section>
+
+    <!-- 3. Problem (What problem) -->
+    <section class="py-16 md:py-20 px-6">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">AI 코딩, 왜 자꾸 어긋나는가?</h2>
+            </div>
+            <div class="space-y-4 md:space-y-6">
+                <div class="flex items-start gap-3 md:gap-4 p-4 md:p-6 bg-red-50 border border-red-200 rounded-xl">
+                    <span class="text-red-500 text-xl md:text-2xl mt-0.5">1</span>
+                    <div>
+                        <h3 class="font-semibold text-base md:text-lg mb-1">AI가 요구사항 일부를 임의로 생략해서 구현이 어긋남</h3>
+                        <p class="text-slate-600 text-sm md:text-base">"로그인 기능 만들어줘" → 비밀번호 재설정? 소셜 로그인? 알아서 생략됨</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 md:gap-4 p-4 md:p-6 bg-red-50 border border-red-200 rounded-xl">
+                    <span class="text-red-500 text-xl md:text-2xl mt-0.5">2</span>
+                    <div>
+                        <h3 class="font-semibold text-base md:text-lg mb-1">중간에 코딩부터 시작해버려서 설계/검증이 뒤늦음</h3>
+                        <p class="text-slate-600 text-sm md:text-base">아키텍처 고민 없이 바로 코드 → 나중에 전체 리팩토링</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-3 md:gap-4 p-4 md:p-6 bg-red-50 border border-red-200 rounded-xl">
+                    <span class="text-red-500 text-xl md:text-2xl mt-0.5">3</span>
+                    <div>
+                        <h3 class="font-semibold text-base md:text-lg mb-1">결과가 매번 달라져서 디버깅 시간이 폭발</h3>
+                        <p class="text-slate-600 text-sm md:text-base">같은 요청인데 어제랑 오늘 결과가 다름 → 2-3일 디버깅 지옥</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-8 md:mt-10 text-center">
+                <p class="text-lg md:text-xl font-semibold text-dark-slate">
+                    그래서 PRD를 <span class="text-accent">'선택'</span>이 아니라 <span class="text-accent">'게이트'</span>로 만든다.
                 </p>
             </div>
         </div>
     </section>
 
-    <!-- Features -->
-    <section id="features" class="py-20 px-6 bg-white">
+    <!-- 4. How it works (3-step) -->
+    <section id="how-it-works" class="py-16 md:py-20 px-6 bg-white">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-10 md:mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">How it works</h2>
+                <p class="text-slate-600 text-base md:text-lg">3단계로 끝</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                <div class="text-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-accent text-white rounded-full flex items-center justify-center text-xl md:text-2xl font-bold mx-auto mb-3 md:mb-4">1</div>
+                    <h3 class="font-semibold text-lg md:text-xl mb-2">PRD 제공</h3>
+                    <p class="text-slate-600 text-sm md:text-base">없으면 진행 불가. 문서부터 작성해야 시작됨.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-accent text-white rounded-full flex items-center justify-center text-xl md:text-2xl font-bold mx-auto mb-3 md:mb-4">2</div>
+                    <h3 class="font-semibold text-lg md:text-xl mb-2">Gate 체크</h3>
+                    <p class="text-slate-600 text-sm md:text-base">필수 섹션, 형식, 결정론 검사를 통과해야 함.</p>
+                </div>
+                <div class="text-center">
+                    <div class="w-14 h-14 md:w-16 md:h-16 bg-accent text-white rounded-full flex items-center justify-center text-xl md:text-2xl font-bold mx-auto mb-3 md:mb-4">3</div>
+                    <h3 class="font-semibold text-lg md:text-xl mb-2">코딩 허용</h3>
+                    <p class="text-slate-600 text-sm md:text-base">통과한 경우에만 코딩 시작. 체계적 개발.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Demo / Proof -->
+    <section id="demo" class="py-16 md:py-20 px-6 bg-dark-slate text-white">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-700 text-sm px-4 py-2 rounded-full mb-4">
-                    <span class="w-2 h-2 bg-emerald-500 rounded-full"></span>
-                    v1.4.2 · 20개 MCP 도구 · PyPI 배포 완료
-                </div>
-                <h2 class="text-3xl font-bold mb-4">실제 구현된 기능</h2>
-                <p class="text-slate-600 text-lg">Claude Code에서 바로 사용 가능한 MCP 도구</p>
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">진짜 막히는지 보세요</h2>
+                <p class="text-slate-400 text-base md:text-lg">PRD 없으면 BLOCK, 있으면 PASS</p>
             </div>
-            <!-- Free Features -->
-            <div class="mb-8">
-                <div class="flex items-center gap-2 mb-6">
-                    <span class="bg-emerald-100 text-emerald-700 text-sm font-semibold px-3 py-1 rounded-full">FREE</span>
-                    <span class="text-slate-500 text-sm">clouvel · 오픈소스 · 무료</span>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div class="bg-warm-white p-8 rounded-xl border border-slate-200/80 hover:border-emerald-300 hover:shadow-lg transition-all">
-                        <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-6">
-                            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <div class="grid md:grid-cols-2 gap-4 md:gap-8">
+                <!-- PRD 없음 → BLOCK -->
+                <div class="bg-slate-800/50 rounded-2xl p-6 border border-red-500/30">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-red-400 text-lg font-bold">PRD 없음</span>
+                        <span class="bg-red-500/20 text-red-400 text-xs px-2 py-1 rounded">BLOCK</span>
+                    </div>
+                    <div class="code-block rounded-xl p-4 font-mono text-sm">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <h3 class="font-semibold text-lg mb-2">문서 강제 (can_code)</h3>
-                        <p class="text-slate-600">PRD, 아키텍처, API 문서 없으면 코딩 차단</p>
-                    </div>
-                    <div class="bg-warm-white p-8 rounded-xl border border-slate-200/80 hover:border-emerald-300 hover:shadow-lg transition-all">
-                        <div class="w-12 h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-6">
-                            <svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        <div class="space-y-2 text-slate-300">
+                            <p><span class="text-slate-500">$</span> claude "로그인 기능 만들어줘"</p>
+                            <p class="text-yellow-400">can_code 검사 중...</p>
+                            <p class="text-red-400">Missing PRD.md -> coding blocked</p>
                         </div>
-                        <h3 class="font-semibold text-lg mb-2">진행 상황 추적</h3>
-                        <p class="text-slate-600">get_progress로 현재 개발 상태 확인</p>
                     </div>
-                    <div class="bg-warm-white p-8 rounded-xl border border-slate-200/80 hover:border-emerald-300 hover:shadow-lg transition-all">
-                        <div class="w-12 h-12 bg-violet-500/10 rounded-lg flex items-center justify-center mb-6">
-                            <svg class="w-6 h-6 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                </div>
+                <!-- PRD 있음 → PASS -->
+                <div class="bg-slate-800/50 rounded-2xl p-6 border border-emerald-500/30">
+                    <div class="flex items-center gap-2 mb-4">
+                        <span class="text-emerald-400 text-lg font-bold">PRD 있음</span>
+                        <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded">PASS</span>
+                    </div>
+                    <div class="code-block rounded-xl p-4 font-mono text-sm">
+                        <div class="flex items-center gap-2 mb-3">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
                         </div>
-                        <h3 class="font-semibold text-lg mb-2">목표 리마인드</h3>
-                        <p class="text-slate-600">get_goal로 프로젝트 목표 상기</p>
+                        <div class="space-y-2 text-slate-300">
+                            <p><span class="text-slate-500">$</span> claude "로그인 기능 만들어줘"</p>
+                            <p class="text-yellow-400">can_code 검사 중...</p>
+                            <p class="text-emerald-400">PRD.md detected -> coding allowed</p>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <!-- Pro Features -->
-            <div class="mt-12">
-                <div class="flex items-center gap-2 mb-6">
-                    <span class="bg-accent text-white text-sm font-semibold px-3 py-1 rounded-full">PRO</span>
-                    <span class="text-slate-500 text-sm">clouvel-pro · $29 · 10개 MCP 도구</span>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="activate_license">
-                        <div class="font-mono text-xs text-accent mb-2">activate_license</div>
-                        <h3 class="font-semibold mb-1">라이선스 활성화</h3>
-                        <p class="text-slate-600 text-sm">Lemon Squeezy 연동</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="install_shovel">
-                        <div class="font-mono text-xs text-accent mb-2">install_shovel</div>
-                        <h3 class="font-semibold mb-1">Shovel 설치</h3>
-                        <p class="text-slate-600 text-sm">24개 슬래시 커맨드</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="sync_commands">
-                        <div class="font-mono text-xs text-accent mb-2">sync_commands</div>
-                        <h3 class="font-semibold mb-1">커맨드 동기화</h3>
-                        <p class="text-slate-600 text-sm">merge/overwrite</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="log_error">
-                        <div class="font-mono text-xs text-accent mb-2">log_error</div>
-                        <h3 class="font-semibold mb-1">에러 기록</h3>
-                        <p class="text-slate-600 text-sm">ERROR_LOG.md 자동화</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="analyze_error">
-                        <div class="font-mono text-xs text-accent mb-2">analyze_error</div>
-                        <h3 class="font-semibold mb-1">에러 분석</h3>
-                        <p class="text-slate-600 text-sm">패턴 분석, 통계</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="get_error_summary">
-                        <div class="font-mono text-xs text-accent mb-2">get_error_summary</div>
-                        <h3 class="font-semibold mb-1">에러 요약</h3>
-                        <p class="text-slate-600 text-sm">타입별 통계</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="add_prevention_rule">
-                        <div class="font-mono text-xs text-accent mb-2">add_prevention_rule</div>
-                        <h3 class="font-semibold mb-1">방지 규칙</h3>
-                        <p class="text-slate-600 text-sm">NEVER/ALWAYS 추가</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="watch_logs">
-                        <div class="font-mono text-xs text-accent mb-2">watch_logs</div>
-                        <h3 class="font-semibold mb-1">로그 감시</h3>
-                        <p class="text-slate-600 text-sm">실시간 모니터링</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="check_logs">
-                        <div class="font-mono text-xs text-accent mb-2">check_logs</div>
-                        <h3 class="font-semibold mb-1">로그 체크</h3>
-                        <p class="text-slate-600 text-sm">로그 상태 확인</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-accent/5 to-accent/10 p-6 rounded-xl border-2 border-accent/30 hover:border-accent hover:shadow-lg transition-all" data-tool="check_license">
-                        <div class="font-mono text-xs text-accent mb-2">check_license</div>
-                        <h3 class="font-semibold mb-1">라이선스 상태</h3>
-                        <p class="text-slate-600 text-sm">티어, 잠금 확인</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Team Features -->
-            <div class="mt-12">
-                <div class="flex items-center gap-2 mb-6">
-                    <span class="bg-violet-600 text-white text-sm font-semibold px-3 py-1 rounded-full">TEAM</span>
-                    <span class="text-slate-500 text-sm">clouvel-pro · $79 · +10개 Team 도구</span>
-                </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-5 gap-4">
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="team_invite">
-                        <div class="font-mono text-xs text-violet-600 mb-2">team_invite</div>
-                        <h3 class="font-semibold mb-1">팀원 초대</h3>
-                        <p class="text-slate-600 text-sm">이메일로 초대</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="team_members">
-                        <div class="font-mono text-xs text-violet-600 mb-2">team_members</div>
-                        <h3 class="font-semibold mb-1">팀원 목록</h3>
-                        <p class="text-slate-600 text-sm">최대 10명</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="team_settings">
-                        <div class="font-mono text-xs text-violet-600 mb-2">team_settings</div>
-                        <h3 class="font-semibold mb-1">C-Level 설정</h3>
-                        <p class="text-slate-600 text-sm">역할 ON/OFF</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="team_toggle_role">
-                        <div class="font-mono text-xs text-violet-600 mb-2">team_toggle_role</div>
-                        <h3 class="font-semibold mb-1">역할 토글</h3>
-                        <p class="text-slate-600 text-sm">CTO/CDO/CPO</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="sync_team_errors">
-                        <div class="font-mono text-xs text-violet-600 mb-2">sync_team_errors</div>
-                        <h3 class="font-semibold mb-1">에러 팀 동기화</h3>
-                        <p class="text-slate-600 text-sm">패턴 공유</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="get_team_rules">
-                        <div class="font-mono text-xs text-violet-600 mb-2">get_team_rules</div>
-                        <h3 class="font-semibold mb-1">팀 규칙 조회</h3>
-                        <p class="text-slate-600 text-sm">NEVER/ALWAYS</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="apply_team_rules">
-                        <div class="font-mono text-xs text-violet-600 mb-2">apply_team_rules</div>
-                        <h3 class="font-semibold mb-1">팀 규칙 적용</h3>
-                        <p class="text-slate-600 text-sm">로컬에 적용</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="sync_project_context">
-                        <div class="font-mono text-xs text-violet-600 mb-2">sync_project_context</div>
-                        <h3 class="font-semibold mb-1">컨텍스트 업로드</h3>
-                        <p class="text-slate-600 text-sm">PRD, 구조 공유</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="get_project_context">
-                        <div class="font-mono text-xs text-violet-600 mb-2">get_project_context</div>
-                        <h3 class="font-semibold mb-1">컨텍스트 조회</h3>
-                        <p class="text-slate-600 text-sm">팀 공유 정보</p>
-                    </div>
-                    <div class="tool-card bg-gradient-to-br from-violet-50 to-violet-100 p-6 rounded-xl border-2 border-violet-200 hover:border-violet-400 hover:shadow-lg transition-all" data-tool="team_remove">
-                        <div class="font-mono text-xs text-violet-600 mb-2">team_remove</div>
-                        <h3 class="font-semibold mb-1">팀원 제거</h3>
-                        <p class="text-slate-600 text-sm">오너 전용</p>
-                    </div>
-                </div>
-            </div>
-            <!-- Shovel Commands -->
-            <div class="mt-16 bg-dark-slate rounded-2xl p-8 text-white">
-                <div class="flex items-center gap-3 mb-6">
-                    <span class="bg-accent/20 text-accent text-sm font-semibold px-3 py-1 rounded-full">SHOVEL</span>
-                    <span class="text-slate-400 text-sm">install_shovel로 설치되는 24개 슬래시 커맨드</span>
-                </div>
-                <div class="grid md:grid-cols-4 lg:grid-cols-6 gap-3 font-mono text-sm">
-                    <div class="bg-slate-800 px-3 py-2 rounded">/start</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/plan</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/implement</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/gate</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/verify</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/commit</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/review</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/test</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/lint</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/build</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/typecheck</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/design</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/interview</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/pm</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/c-level</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/handoff</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/step-done</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/sync</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/deep-debug</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/error-log</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/learn-error</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/ssot-check</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/check-complete</div>
-                    <div class="bg-slate-800 px-3 py-2 rounded">/verify-server</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Free vs Pro Comparison -->
-    <section class="py-20 px-6 bg-slate-50">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">Free vs Pro</h2>
-                <p class="text-slate-600 text-lg">필요한 만큼만 선택하세요</p>
+    <!-- 6. Features (4개로 축소, 결과 중심) -->
+    <section id="features" class="py-16 md:py-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-10 md:mb-16">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">딱 필요한 것만</h2>
+                <p class="text-slate-600 text-base md:text-lg">핵심 기능 4가지</p>
             </div>
-            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                <table class="w-full">
-                    <thead>
-                        <tr class="border-b border-slate-200">
-                            <th class="text-left p-4 font-semibold text-slate-700">기능</th>
-                            <th class="text-center p-4 font-semibold text-emerald-600 bg-emerald-50">Free</th>
-                            <th class="text-center p-4 font-semibold text-accent bg-accent/5">Pro</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-slate-100">
-                        <tr>
-                            <td class="p-4 text-slate-700">문서 강제 (can_code)</td>
-                            <td class="p-4 text-center"><span class="text-emerald-500 text-xl">&#10003;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr class="bg-slate-50/50">
-                            <td class="p-4 text-slate-700">Gate 시스템</td>
-                            <td class="p-4 text-center"><span class="text-emerald-500 text-xl">&#10003;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 text-slate-700">Verify 검증</td>
-                            <td class="p-4 text-center"><span class="text-emerald-500 text-xl">&#10003;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr class="bg-slate-50/50">
-                            <td class="p-4 text-slate-700">Planning 도구</td>
-                            <td class="p-4 text-center"><span class="text-emerald-500 text-xl">&#10003;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr>
-                            <td class="p-4 text-slate-700">탐색 에이전트</td>
-                            <td class="p-4 text-center"><span class="text-emerald-500 text-xl">&#10003;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr class="bg-slate-50/50">
-                            <td class="p-4 text-slate-700">자동화 훅</td>
-                            <td class="p-4 text-center"><span class="text-emerald-500 text-xl">&#10003;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr class="border-t-2 border-accent/20">
-                            <td class="p-4 text-slate-700 font-medium">Shovel 자동 설치</td>
-                            <td class="p-4 text-center"><span class="text-slate-300 text-xl">&#10007;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr class="bg-accent/5">
-                            <td class="p-4 text-slate-700 font-medium">Error Learning</td>
-                            <td class="p-4 text-center"><span class="text-slate-300 text-xl">&#10007;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr class="border-b-2 border-accent/20">
-                            <td class="p-4 text-slate-700 font-medium">커맨드 동기화</td>
-                            <td class="p-4 text-center"><span class="text-slate-300 text-xl">&#10007;</span></td>
-                            <td class="p-4 text-center"><span class="text-accent text-xl">&#10003;</span></td>
-                        </tr>
-                        <tr class="bg-slate-100">
-                            <td class="p-4 font-bold text-slate-800">가격</td>
-                            <td class="p-4 text-center font-bold text-emerald-600 text-lg">$0</td>
-                            <td class="p-4 text-center font-bold text-accent text-lg">$29~</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200/80 hover:border-accent hover:shadow-lg transition-all">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4 md:mb-6">
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <h3 class="font-semibold text-base md:text-lg mb-1 md:mb-2">PRD-First 강제</h3>
+                    <p class="text-slate-600 text-sm md:text-base">문서 없으면 코딩 차단. 요구사항 누락 원천 방지.</p>
+                </div>
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200/80 hover:border-accent hover:shadow-lg transition-all">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-emerald-500/10 rounded-lg flex items-center justify-center mb-4 md:mb-6">
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h3 class="font-semibold text-base md:text-lg mb-1 md:mb-2">결정론 보장</h3>
+                    <p class="text-slate-600 text-sm md:text-base">동일 입력 = 동일 출력. 결과 일관성 확보.</p>
+                </div>
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200/80 hover:border-accent hover:shadow-lg transition-all">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-violet-500/10 rounded-lg flex items-center justify-center mb-4 md:mb-6">
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+                    </div>
+                    <h3 class="font-semibold text-base md:text-lg mb-1 md:mb-2">누락 감지</h3>
+                    <p class="text-slate-600 text-sm md:text-base">요구사항 빠뜨리면 즉시 알림. 사후가 아닌 사전에.</p>
+                </div>
+                <div class="bg-white p-5 md:p-8 rounded-xl border border-slate-200/80 hover:border-accent hover:shadow-lg transition-all">
+                    <div class="w-10 h-10 md:w-12 md:h-12 bg-orange-500/10 rounded-lg flex items-center justify-center mb-4 md:mb-6">
+                        <svg class="w-5 h-5 md:w-6 md:h-6 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+                    </div>
+                    <h3 class="font-semibold text-base md:text-lg mb-1 md:mb-2">툴 통합</h3>
+                    <p class="text-slate-600 text-sm md:text-base">CLI, Claude Desktop, VS Code, Cursor 전부 지원.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Installation Guide -->
-    <section id="install" class="py-20 px-6 bg-dark-slate text-white">
+    <!-- 7. Getting Started (환경별 탭) -->
+    <section id="getting-started" class="py-20 px-6 bg-dark-slate text-white">
         <div class="max-w-4xl mx-auto">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">설치 가이드</h2>
-                <p class="text-slate-400 text-lg">PyPI에서 바로 설치, Claude Code와 연동</p>
+                <h2 class="text-3xl font-bold mb-4">Getting Started</h2>
+                <p class="text-slate-400 text-lg">환경에 맞게 3단계로 설치</p>
             </div>
-            <!-- Personal -->
-            <div class="mb-12">
-                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <span class="bg-accent/20 text-accent text-sm px-2 py-1 rounded">Personal</span>
-                    개인 사용자
-                </h3>
+            <!-- Tabs -->
+            <div class="grid grid-cols-2 md:flex md:flex-wrap md:justify-center gap-2 mb-8">
+                <button class="tab-btn active px-4 py-3 md:px-6 md:py-2 rounded-xl md:rounded-full font-medium text-sm md:text-base transition" data-tab="cli">CLI</button>
+                <button class="tab-btn px-4 py-3 md:px-6 md:py-2 rounded-xl md:rounded-full font-medium text-sm md:text-base bg-slate-700 hover:bg-slate-600 transition" data-tab="claude-desktop">Claude Desktop</button>
+                <button class="tab-btn px-4 py-3 md:px-6 md:py-2 rounded-xl md:rounded-full font-medium text-sm md:text-base bg-slate-700 hover:bg-slate-600 transition" data-tab="vscode">VS Code</button>
+                <button class="tab-btn px-4 py-3 md:px-6 md:py-2 rounded-xl md:rounded-full font-medium text-sm md:text-base bg-slate-700 hover:bg-slate-600 transition" data-tab="cursor">Cursor</button>
+            </div>
+            <!-- Tab Contents -->
+            <div id="tab-cli" class="tab-content active">
                 <div class="bg-slate-800 rounded-xl p-6 font-mono text-sm space-y-4">
                     <div>
-                        <p class="text-slate-400 mb-2"># 1. 설치</p>
+                        <p class="text-slate-400 mb-2"># 1. Install</p>
+                        <p class="text-emerald-400">pip install clouvel</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 mb-2"># 2. Config (선택: Pro 버전)</p>
+                        <p class="text-slate-300">pip install clouvel-pro</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 mb-2"># 3. Run</p>
+                        <p class="text-slate-300">claude --mcp clouvel</p>
+                    </div>
+                </div>
+            </div>
+            <div id="tab-claude-desktop" class="tab-content">
+                <div class="bg-slate-800 rounded-xl p-6 font-mono text-sm space-y-4">
+                    <div>
+                        <p class="text-slate-400 mb-2"># 1. Install</p>
                         <p class="text-emerald-400">pip install clouvel-pro</p>
                     </div>
                     <div>
-                        <p class="text-slate-400 mb-2"># 2. Claude Code 설정 (~/.config/claude/claude_desktop_config.json)</p>
+                        <p class="text-slate-400 mb-2"># 2. Config (~/.config/claude/claude_desktop_config.json)</p>
                         <pre class="text-slate-300 overflow-x-auto">{
   "mcpServers": {
     "clouvel-pro": {
@@ -622,57 +364,63 @@
 }</pre>
                     </div>
                     <div>
-                        <p class="text-slate-400 mb-2"># 3. Claude Code에서 라이선스 활성화</p>
-                        <p class="text-slate-300">> activate_license(license_key="YOUR-LICENSE-KEY")</p>
+                        <p class="text-slate-400 mb-2"># 3. Run</p>
+                        <p class="text-slate-300">Claude Desktop 재시작 후 자동 연동</p>
                     </div>
                 </div>
             </div>
-            <!-- Team -->
-            <div>
-                <h3 class="text-xl font-semibold mb-4 flex items-center gap-2">
-                    <span class="bg-violet-600/30 text-violet-300 text-sm px-2 py-1 rounded">Team</span>
-                    팀 사용자
-                </h3>
+            <div id="tab-vscode" class="tab-content">
                 <div class="bg-slate-800 rounded-xl p-6 font-mono text-sm space-y-4">
                     <div>
-                        <p class="text-slate-400 mb-2"># 1. 모든 팀원이 각자 PC에 설치</p>
+                        <p class="text-slate-400 mb-2"># 1. Install</p>
                         <p class="text-emerald-400">pip install clouvel-pro</p>
                     </div>
                     <div>
-                        <p class="text-slate-400 mb-2"># 2. 오너(구매자)가 먼저 라이선스 활성화</p>
-                        <p class="text-slate-300">> activate_license(license_key="TEAM-LICENSE-KEY")</p>
+                        <p class="text-slate-400 mb-2"># 2. Config (settings.json)</p>
+                        <pre class="text-slate-300 overflow-x-auto">{
+  "claude.mcpServers": {
+    "clouvel-pro": {
+      "command": "clouvel-pro"
+    }
+  }
+}</pre>
                     </div>
                     <div>
-                        <p class="text-slate-400 mb-2"># 3. 오너가 팀원 초대</p>
-                        <p class="text-slate-300">> team_invite(email="member@company.com", role="member")</p>
-                    </div>
-                    <div>
-                        <p class="text-slate-400 mb-2"># 4. 팀원도 같은 라이선스 키로 활성화</p>
-                        <p class="text-slate-300">> activate_license(license_key="TEAM-LICENSE-KEY")</p>
-                    </div>
-                    <div>
-                        <p class="text-slate-400 mb-2"># 5. 에러 패턴 팀 공유</p>
-                        <p class="text-slate-300">> sync_team_errors(project_path=".")  <span class="text-slate-500"># 로컬 → 팀</span></p>
-                        <p class="text-slate-300">> apply_team_rules(project_path=".")  <span class="text-slate-500"># 팀 → 로컬</span></p>
+                        <p class="text-slate-400 mb-2"># 3. Run</p>
+                        <p class="text-slate-300">VS Code에서 Claude 확장과 함께 사용</p>
                     </div>
                 </div>
             </div>
-            <p class="text-center text-slate-500 text-sm mt-8">
-                VS Code 사용자: Claude Code 확장 설치 후 동일하게 사용
-            </p>
+            <div id="tab-cursor" class="tab-content">
+                <div class="bg-slate-800 rounded-xl p-6 font-mono text-sm space-y-4">
+                    <div>
+                        <p class="text-slate-400 mb-2"># 1. Install</p>
+                        <p class="text-emerald-400">pip install clouvel-pro</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 mb-2"># 2. Config</p>
+                        <p class="text-slate-300">Cursor Settings > MCP 서버 추가</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-400 mb-2"># 3. Run</p>
+                        <p class="text-slate-300">프로젝트 열고 "pre-coding gate" 워크플로 활성화</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Pricing -->
+    <!-- 8. Pricing -->
     <section id="pricing" class="py-20 px-6">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
+            <div class="text-center mb-8">
                 <h2 class="text-3xl font-bold mb-4">심플한 가격</h2>
-                <p class="text-slate-600 text-lg">Free로 시작하고, 필요하면 Pro로 업그레이드</p>
+                <p class="text-slate-600 text-lg mb-4">Free로 시작하고, 필요하면 Pro로 업그레이드</p>
+                <p class="text-slate-500 text-sm max-w-2xl mx-auto">팀/프로젝트에서 AI 코딩을 쓰는데, 요구사항 누락으로 디버깅이 잦다면 이게 이득입니다.</p>
             </div>
-            <div class="grid md:grid-cols-4 gap-6">
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                 <!-- Free -->
-                <div class="bg-emerald-50 p-8 rounded-2xl border-2 border-emerald-200">
+                <div class="bg-emerald-50 p-6 md:p-8 rounded-2xl border-2 border-emerald-200">
                     <h3 class="font-semibold text-lg mb-1">Free</h3>
                     <p class="text-slate-500 text-sm mb-6">오픈소스</p>
                     <div class="flex items-baseline gap-1 mb-6">
@@ -686,23 +434,11 @@
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            Gate 시스템
+                            진행 상황 추적
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            Verify 검증
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            Planning 도구
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            탐색 에이전트
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            자동화 훅
+                            목표 리마인드
                         </li>
                     </ul>
                     <a href="https://github.com/Whitening-Sinabro/clouvel" target="_blank" class="block w-full py-3 rounded-full text-center font-medium bg-emerald-600 text-white hover:bg-emerald-700 transition">
@@ -710,7 +446,7 @@
                     </a>
                 </div>
                 <!-- Personal Pro -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200">
+                <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200">
                     <h3 class="font-semibold text-lg mb-1">Personal Pro</h3>
                     <p class="text-slate-500 text-sm mb-6">개인 개발자</p>
                     <div class="flex items-baseline gap-1 mb-6">
@@ -734,17 +470,13 @@
                             <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                             <span class="text-accent font-medium">커맨드 동기화</span>
                         </li>
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            라이선스 1명
-                        </li>
                     </ul>
                     <a href="https://clouvel.lemonsqueezy.com/checkout/buy/698a4b0b-b6c1-404e-b400-9790719f4c34" target="_blank" class="block w-full py-3 rounded-full text-center font-medium border border-slate-300 hover:border-slate-400 transition">
                         구매하기
                     </a>
                 </div>
                 <!-- Team Pro -->
-                <div class="border-2 border-accent p-8 rounded-2xl relative">
+                <div class="border-2 border-accent p-6 md:p-8 rounded-2xl relative">
                     <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-white text-xs font-medium px-3 py-1 rounded-full">추천</div>
                     <h3 class="font-semibold text-lg mb-1">Team Pro</h3>
                     <p class="text-slate-500 text-sm mb-6">소규모 팀 (최대 10명)</p>
@@ -757,7 +489,7 @@
                     <ul class="space-y-3 mb-8 text-sm">
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            모든 Personal Pro 기능
+                            Personal Pro 전체
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -769,15 +501,7 @@
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            <span class="text-accent font-medium">C-Level 역할 커스텀</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                             <span class="text-accent font-medium">프로젝트 컨텍스트 동기화</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            라이선스 10명
                         </li>
                     </ul>
                     <a href="https://clouvel.lemonsqueezy.com/checkout/buy/0cc0065b-9c2f-4d19-b73d-611630c16308" target="_blank" class="block w-full py-3 rounded-full text-center font-medium bg-accent text-white hover:bg-accent-dark transition">
@@ -785,7 +509,7 @@
                     </a>
                 </div>
                 <!-- Enterprise -->
-                <div class="bg-white p-8 rounded-2xl border border-slate-200">
+                <div class="bg-white p-6 md:p-8 rounded-2xl border border-slate-200">
                     <h3 class="font-semibold text-lg mb-1">Enterprise</h3>
                     <p class="text-slate-500 text-sm mb-6">대규모 팀</p>
                     <div class="flex items-baseline gap-1 mb-1">
@@ -797,7 +521,7 @@
                     <ul class="space-y-3 mb-8 text-sm">
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            모든 Team Pro 기능
+                            Team Pro 전체
                         </li>
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
@@ -806,10 +530,6 @@
                         <li class="flex items-center gap-2">
                             <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
                             우선 지원
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
-                            평생 업데이트
                         </li>
                     </ul>
                     <a href="https://github.com/Whitening-Sinabro/clouvel/issues" target="_blank" class="block w-full py-3 rounded-full text-center font-medium border border-slate-300 hover:border-slate-400 transition">
@@ -820,14 +540,61 @@
         </div>
     </section>
 
-    <!-- Contact / Support -->
-    <section id="contact" class="py-20 px-6 bg-white">
-        <div class="max-w-2xl mx-auto">
-            <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold mb-4">문의하기</h2>
-                <p class="text-slate-600 text-lg">PC 교체, 라이선스 문제 등 빠르게 도와드립니다</p>
+    <!-- 9. FAQ -->
+    <section id="faq" class="py-16 md:py-20 px-6 bg-white">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">FAQ</h2>
+                <p class="text-slate-600 text-base md:text-lg">자주 묻는 질문</p>
             </div>
-            <form id="contactForm" class="space-y-6">
+            <div class="space-y-3 md:space-y-4">
+                <details class="bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer group">
+                    <summary class="font-semibold text-base md:text-lg flex items-center justify-between gap-2">
+                        <span>PRD 형식 강제함?</span>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 md:mt-4 text-slate-600 text-sm md:text-base">기본 템플릿을 제공하지만, 강제하지는 않습니다. 필수 섹션(목표, 범위, 요구사항)만 있으면 됩니다.</p>
+                </details>
+                <details class="bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer group">
+                    <summary class="font-semibold text-base md:text-lg flex items-center justify-between gap-2">
+                        <span>내 PRD 템플릿 써도 됨?</span>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 md:mt-4 text-slate-600 text-sm md:text-base">네. 기존 템플릿 그대로 사용 가능합니다. Clouvel은 문서 "존재 여부"를 체크하는 게이트입니다.</p>
+                </details>
+                <details class="bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer group">
+                    <summary class="font-semibold text-base md:text-lg flex items-center justify-between gap-2">
+                        <span>오프라인/로컬에서 되나?</span>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 md:mt-4 text-slate-600 text-sm md:text-base">라이선스 활성화 시 최초 1회 인터넷 연결이 필요합니다. 이후에는 오프라인에서도 사용 가능합니다.</p>
+                </details>
+                <details class="bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer group">
+                    <summary class="font-semibold text-base md:text-lg flex items-center justify-between gap-2">
+                        <span>기존 워크플로에 어떻게 끼움?</span>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 md:mt-4 text-slate-600 text-sm md:text-base">MCP 서버로 동작하므로, Claude Code/Desktop에 설정만 추가하면 됩니다. 기존 코드나 프로젝트 구조는 건드리지 않습니다.</p>
+                </details>
+                <details class="bg-slate-50 rounded-xl p-4 md:p-6 cursor-pointer group">
+                    <summary class="font-semibold text-base md:text-lg flex items-center justify-between gap-2">
+                        <span>왜 그냥 프롬프트로 해결 안 함?</span>
+                        <svg class="w-5 h-5 text-slate-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </summary>
+                    <p class="mt-3 md:mt-4 text-slate-600 text-sm md:text-base"><strong>프롬프트는 '요청'이고, 게이트는 '규칙'입니다.</strong> 요청은 무시될 수 있지만, 게이트는 통과 아니면 차단입니다. 규칙이 있어야 일관성이 생깁니다.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Contact -->
+    <section id="contact" class="py-16 md:py-20 px-6">
+        <div class="max-w-2xl mx-auto">
+            <div class="text-center mb-8 md:mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-4">문의하기</h2>
+                <p class="text-slate-600 text-base md:text-lg">PC 교체, 라이선스 문제 등 빠르게 도와드립니다</p>
+            </div>
+            <form id="contactForm" class="space-y-4 md:space-y-6">
                 <div>
                     <label for="email" class="block text-sm font-medium text-slate-700 mb-2">이메일 (필수)</label>
                     <input type="email" id="email" name="email" required
@@ -877,7 +644,6 @@
         const formSuccess = document.getElementById('formSuccess');
         const formError = document.getElementById('formError');
 
-        // Reset states
         formSuccess.classList.add('hidden');
         formError.classList.add('hidden');
         submitBtn.disabled = true;
@@ -899,12 +665,12 @@
 
         const payload = {
             embeds: [{
-                title: '📬 새 문의 접수',
+                title: 'New Contact',
                 color: 0x0EA5E9,
                 fields: [
-                    { name: '이메일', value: email, inline: true },
-                    { name: '유형', value: issueTypeLabels[issueType] || issueType, inline: true },
-                    { name: '내용', value: message || '(없음)', inline: false }
+                    { name: 'Email', value: email, inline: true },
+                    { name: 'Type', value: issueTypeLabels[issueType] || issueType, inline: true },
+                    { name: 'Message', value: message || '(none)', inline: false }
                 ],
                 timestamp: new Date().toISOString()
             }]
@@ -932,554 +698,63 @@
     });
     </script>
 
-    <!-- CTA -->
-    <section class="py-20 px-6">
-        <div class="max-w-4xl mx-auto">
-            <div class="bg-dark-slate rounded-3xl p-12 text-center text-white relative overflow-hidden">
-                <!-- Background decoration -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-3xl"></div>
-                <div class="absolute bottom-0 left-0 w-48 h-48 bg-accent/5 rounded-full blur-2xl"></div>
-
-                <div class="relative z-10">
-                    <h2 class="text-4xl font-bold mb-4">디버깅 지옥에서 벗어나세요</h2>
-                    <p class="text-slate-300 mb-8 text-lg">
-                        무료로 시작하세요. GitHub에서 바로 사용 가능합니다.
-                    </p>
-                    <div class="flex flex-wrap gap-4 justify-center">
-                        <a href="https://github.com/Whitening-Sinabro/clouvel" target="_blank" class="cta-pulse inline-flex items-center gap-2 bg-accent text-white px-8 py-4 rounded-full font-medium hover:bg-accent-dark transition text-lg">
-                            무료로 시작하기
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/></svg>
-                        </a>
-                    </div>
-                    <p class="text-slate-400 text-sm mt-6">
-                        Pro 버전은 $29부터 · 평생 라이선스 · 모든 업데이트 포함
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-slate-200/50 bg-warm-white">
+    <footer class="py-8 md:py-12 px-6 border-t border-slate-200/50 bg-warm-white">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 mb-4 md:mb-6">
                 <div class="text-sm text-slate-500">
-                    © 2026 Clouvel. Made by SINABRO.
+                    &copy; 2026 Clouvel. Made by SINABRO.
                 </div>
-                <div class="flex gap-6 text-sm text-slate-500">
+                <div class="flex gap-4 md:gap-6 text-sm text-slate-500">
                     <a href="https://github.com/Whitening-Sinabro/clouvel" target="_blank" class="hover:text-dark-slate transition">GitHub</a>
                     <a href="https://github.com/Whitening-Sinabro/clouvel/issues" target="_blank" class="hover:text-dark-slate transition">Support</a>
                     <a href="terms.html" class="hover:text-dark-slate transition">Terms</a>
                 </div>
             </div>
-            <p class="text-center text-slate-400 text-xs">
+            <p class="text-center text-slate-400 text-xs px-4">
                 면책: 본 서비스의 효과는 사용 환경에 따라 다를 수 있으며, Clouvel은 특정 결과를 보장하지 않습니다.
             </p>
         </div>
     </footer>
 
-    <!-- Tool Detail Modal -->
-    <div id="toolModal" class="fixed inset-0 z-[100] hidden">
-        <div class="modal-backdrop absolute inset-0" onclick="closeModal()"></div>
-        <div class="absolute inset-4 md:inset-10 lg:inset-20 bg-white rounded-2xl shadow-2xl overflow-hidden flex flex-col">
-            <div class="flex items-center justify-between p-6 border-b border-slate-200">
-                <div>
-                    <span id="modalBadge" class="text-xs font-medium px-2 py-1 rounded bg-accent/10 text-accent">PRO</span>
-                    <h2 id="modalTitle" class="text-2xl font-bold mt-2">도구 이름</h2>
-                </div>
-                <button onclick="closeModal()" class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                </button>
-            </div>
-            <div class="flex-1 overflow-y-auto p-6 space-y-6">
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">설명</h3>
-                    <p id="modalDesc" class="text-slate-600"></p>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">사용법</h3>
-                    <div class="code-block rounded-xl p-4 font-mono text-sm">
-                        <pre id="modalUsage" class="text-slate-300 whitespace-pre-wrap"></pre>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="font-semibold text-lg mb-2">실행 결과 예시</h3>
-                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-4">
-                        <pre id="modalResult" class="text-slate-700 whitespace-pre-wrap text-sm"></pre>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    <!-- Mobile Menu Script -->
     <script>
-    // Tool Data
-    const toolData = {
-        // Pro Tools
-        activate_license: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'activate_license',
-            desc: 'Lemon Squeezy에서 구매한 라이선스 키를 활성화합니다. 활성화 후 7일 잠금 기간이 시작되며, 이 기간이 지나면 프리미엄 기능을 사용할 수 있습니다.',
-            usage: `> activate_license(license_key="XXXX-XXXX-XXXX-XXXX")`,
-            result: `# ✅ 라이선스 활성화 완료
-
-- **티어**: Personal
-- **가격**: $29
-- **인원**: 1명
-
-## 7일 잠금
-Buy-Use-Refund 공격 방어를 위해 7일 후부터
-프리미엄 기능이 활성화됩니다.
-
-**잠금 해제일**: 2026-01-25`
-        },
-        install_shovel: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'install_shovel',
-            desc: 'Shovel 워크플로우의 .claude/ 구조를 프로젝트에 자동 설치합니다. 24개의 슬래시 커맨드, 템플릿, 설정 파일이 포함됩니다.',
-            usage: `> install_shovel(path=".", force=False)
-
-# 강제 덮어쓰기
-> install_shovel(path=".", force=True)`,
-            result: `# ✅ Shovel 설치 완료
-
-## 설치 경로
-\`D:\\my-project\`
-
-## 생성된 구조
-\`\`\`
-.claude/
-├── commands/      (슬래시 커맨드) - 24개
-├── templates/     (템플릿) - 6개
-├── config/        (설정) - 1개
-├── evidence/      (Gate 증거)
-├── logs/          (작업 로그)
-└── settings.json  (설정)
-\`\`\`
-
-## 다음 단계
-1. \`/start\` - 프로젝트 온보딩
-2. \`/plan\` - 계획 수립
-3. \`/gate\` - 검증 실행`
-        },
-        sync_commands: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'sync_commands',
-            desc: 'Shovel 커맨드를 최신 버전으로 동기화합니다. merge 모드는 기존 파일을 유지하고, overwrite 모드는 모두 덮어씁니다.',
-            usage: `# 기존 파일 유지 (merge)
-> sync_commands(path=".", mode="merge")
-
-# 모두 덮어쓰기 (overwrite)
-> sync_commands(path=".", mode="overwrite")`,
-            result: `# ✅ 커맨드 동기화 완료
-
-## 버전
-\`v1.4.2\`
-
-## 모드
-\`merge\` (기존 파일 유지)
-
-## 동기화된 커맨드
-- start.md
-- plan.md
-- implement.md
-- gate.md
-...
-
-## 스킵된 커맨드 (이미 존재)
-- commit.md (커스터마이징됨)`
-        },
-        log_error: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'log_error',
-            desc: '발생한 에러를 ERROR_LOG.md에 기록합니다. 에러 타입, 메시지, 컨텍스트를 분류하여 저장하며, 나중에 패턴 분석에 활용됩니다.',
-            usage: `> log_error(
-    error_type="TypeError",
-    message="Cannot read property 'x' of undefined",
-    context={"file": "app.js", "line": 42}
-)`,
-            result: `# 에러 기록됨
-
-## 분류
-- **타입**: TypeError
-- **소스**: terminal
-- **시간**: 2026-01-18T10:30:00
-
-## 위치
-- 파일: app.js
-- 라인: 42
-
-## 방지책
-로그 분석 후 패턴 추가
-
-## 다음 단계
-1. \`analyze_error\` 도구로 상세 분석
-2. \`add_prevention_rule\` 도구로 방지 규칙 추가`
-        },
-        analyze_error: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'analyze_error',
-            desc: 'ERROR_LOG.md의 에러 패턴을 분석합니다. 가장 빈번한 에러, 타입별 통계, 권장 조치를 제공합니다.',
-            usage: `> analyze_error(
-    error_type="TypeError",
-    message="Cannot read property"
-)`,
-            result: `# 에러 분석
-
-## 에러 히스토리
-
-| 타입 | 횟수 | 마지막 발생 |
-|------|------|-------------|
-| TypeError | 5 | 2026-01-18 |
-| SyntaxError | 2 | 2026-01-17 |
-
-### 가장 빈번한 에러
-- **타입**: TypeError
-- **횟수**: 5회
-- **권장 조치**: null 체크 추가`
-        },
-        get_error_summary: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'get_error_summary',
-            desc: '최근 N일간의 에러 통계를 요약합니다. 에러 타입별 비율과 추세를 파악할 수 있습니다.',
-            usage: `> get_error_summary(days=7)`,
-            result: `# 에러 요약 (최근 7일)
-
-**총 에러 수**: 12
-
-## 에러 타입별 통계
-
-| 타입 | 횟수 | 비율 |
-|------|------|------|
-| TypeError | 5 | 41.7% |
-| SyntaxError | 3 | 25.0% |
-| ReferenceError | 2 | 16.7% |
-| NetworkError | 2 | 16.7% |`
-        },
-        add_prevention_rule: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'add_prevention_rule',
-            desc: 'CLAUDE.md에 NEVER/ALWAYS 규칙을 추가합니다. 같은 실수를 반복하지 않도록 방지 규칙을 학습시킵니다.',
-            usage: `> add_prevention_rule(
-    rule_type="NEVER",
-    rule="undefined 체크 없이 객체 속성 접근",
-    reason="TypeError 5회 발생"
-)`,
-            result: `# ✅ 방지 규칙 추가됨
-
-## 추가된 규칙
-**NEVER**: undefined 체크 없이 객체 속성 접근
-
-## 사유
-TypeError 5회 발생
-
-## CLAUDE.md 업데이트됨
-\`\`\`markdown
-## NEVER (절대 하지 마세요)
-- undefined 체크 없이 객체 속성 접근
-\`\`\``
-        },
-        watch_logs: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'watch_logs',
-            desc: '로그 파일을 실시간으로 모니터링하도록 설정합니다. 에러 발생 시 자동으로 감지하여 기록합니다.',
-            usage: `> watch_logs(
-    log_path="./logs/app.log",
-    pattern="ERROR|WARN"
-)`,
-            result: `# ✅ 로그 감시 설정됨
-
-## 감시 대상
-- **경로**: ./logs/app.log
-- **패턴**: ERROR|WARN
-
-## 상태
-감시 중...
-
-새로운 에러 발견 시 자동으로 log_error가 호출됩니다.`
-        },
-        check_logs: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'check_logs',
-            desc: '현재 로그 감시 상태를 확인합니다. 활성화된 감시 대상과 최근 감지된 에러를 보여줍니다.',
-            usage: `> check_logs()`,
-            result: `# 로그 감시 상태
-
-## 활성 감시
-| 경로 | 패턴 | 마지막 체크 |
-|------|------|------------|
-| ./logs/app.log | ERROR|WARN | 10초 전 |
-
-## 최근 감지
-- [10:30:02] ERROR: Connection timeout
-- [10:28:15] WARN: Deprecated API usage`
-        },
-        check_license: {
-            badge: 'PRO',
-            badgeColor: 'bg-accent/10 text-accent',
-            title: 'check_license',
-            desc: '현재 라이선스 상태를 확인합니다. 티어, 잠금 상태, 사용 가능한 기능 목록을 보여줍니다.',
-            usage: `> check_license()`,
-            result: `# ✅ 라이선스 활성화됨
-
-- **티어**: Personal
-- **인원**: 1명
-- **활성화 경과**: 3일
-- ⏳ **프리미엄 잠금 중** (4일 남음)
-
-## 지금 사용 가능한 기능
-- \`watch_logs\` - 로그 감시 설정
-- \`check_logs\` - 로그 체크
-
-## 4일 후 사용 가능 (프리미엄)
-- \`install_shovel\` - Shovel 설치
-- \`sync_commands\` - 커맨드 동기화
-- \`log_error\` - 에러 기록
-...`
-        },
-        // Team Tools
-        team_invite: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'team_invite',
-            desc: '팀원을 이메일로 초대합니다. 초대된 팀원은 같은 라이선스 키로 활성화하면 팀에 합류됩니다.',
-            usage: `> team_invite(
-    email="developer@company.com",
-    role="member"  # 또는 "admin"
-)`,
-            result: `# ✅ 멤버 초대 완료
-
-**초대 대상**: developer@company.com
-**역할**: member
-
-## 팀 현황
-- **현재 멤버**: 3명
-- **남은 시트**: 7개
-
-## 다음 단계
-초대받은 팀원이 같은 라이선스 키로
-activate_license를 실행하면 합류됩니다.`
-        },
-        team_members: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'team_members',
-            desc: '현재 팀 멤버 목록을 조회합니다. 이메일, 역할, 가입일을 확인할 수 있습니다.',
-            usage: `> team_members()`,
-            result: `# 팀 멤버 목록
-
-**오너**: owner@company.com
-
-## 멤버 (3/10)
-
-| 이메일 | 역할 | 가입일 |
-|--------|------|--------|
-| owner@company.com | owner | 2026-01-10 |
-| dev1@company.com | admin | 2026-01-12 |
-| dev2@company.com | member | 2026-01-15 |
-
-**남은 시트**: 7개`
-        },
-        team_settings: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'team_settings',
-            desc: 'C-Level 역할 설정을 조회합니다. 각 역할(CTO, CDO, CPO, CFO, CMO)의 활성화 상태를 확인합니다.',
-            usage: `> team_settings()`,
-            result: `# 팀 C-Level 역할 설정
-
-| 역할 | 상태 |
-|------|------|
-| CTO | ✅ 활성화 |
-| CDO | ✅ 활성화 |
-| CPO | ✅ 활성화 |
-| CFO | ❌ 비활성화 |
-| CMO | ❌ 비활성화 |
-
-## 설정 변경
-\`team_toggle_role\` 도구를 사용하세요.`
-        },
-        team_toggle_role: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'team_toggle_role',
-            desc: 'C-Level 역할을 활성화/비활성화합니다. 필요한 역할만 켜서 Claude의 응답을 커스터마이징합니다.',
-            usage: `# CFO 역할 활성화
-> team_toggle_role(role="CFO", enabled=True)
-
-# CMO 역할 비활성화
-> team_toggle_role(role="CMO", enabled=False)`,
-            result: `# ✅ C-Level 역할 설정 변경 완료
-
-| 역할 | 상태 |
-|------|------|
-| CTO | ✅ |
-| CDO | ✅ |
-| CPO | ✅ |
-| CFO | ✅ |  ← 변경됨
-| CMO | ❌ |`
-        },
-        sync_team_errors: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'sync_team_errors',
-            desc: '로컬 ERROR_LOG.md의 에러 패턴을 팀에 공유합니다. 한 명의 실수를 전체 팀이 학습합니다.',
-            usage: `> sync_team_errors()`,
-            result: `# ✅ 에러 패턴 팀 동기화 완료
-
-## 동기화된 패턴
-- TypeError: null 체크 누락 (3회)
-- SyntaxError: 세미콜론 누락 (2회)
-
-## 팀 학습 효과
-이제 모든 팀원의 Claude가 이 패턴을 인식하고
-같은 실수를 방지합니다.`
-        },
-        get_team_rules: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'get_team_rules',
-            desc: '팀에서 공유하는 NEVER/ALWAYS 규칙을 조회합니다. 팀 전체의 코딩 규칙을 확인합니다.',
-            usage: `> get_team_rules()`,
-            result: `# 팀 공유 규칙
-
-## 🚫 NEVER (절대 금지)
-- console.log를 프로덕션에 남기지 않기
-- any 타입 사용 금지
-- 하드코딩된 API 키 금지
-
-## ✅ ALWAYS (항상 수행)
-- 모든 함수에 JSDoc 작성
-- 에러 발생 시 적절한 fallback 제공
-- 새 기능은 테스트와 함께 커밋
-
----
-이 규칙들을 CLAUDE.md에 추가하려면
-\`apply_team_rules\`를 사용하세요.`
-        },
-        apply_team_rules: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'apply_team_rules',
-            desc: '팀 규칙을 로컬 CLAUDE.md에 적용합니다. 팀의 NEVER/ALWAYS 규칙이 내 프로젝트에 추가됩니다.',
-            usage: `> apply_team_rules(path=".")`,
-            result: `# ✅ 팀 규칙 적용 완료
-
-## 추가된 규칙
-
-### NEVER (3개)
-- console.log를 프로덕션에 남기지 않기
-- any 타입 사용 금지
-- 하드코딩된 API 키 금지
-
-### ALWAYS (3개)
-- 모든 함수에 JSDoc 작성
-- 에러 발생 시 적절한 fallback 제공
-- 새 기능은 테스트와 함께 커밋
-
-## CLAUDE.md 업데이트됨`
-        },
-        sync_project_context: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'sync_project_context',
-            desc: '프로젝트 컨텍스트(PRD, 파일 구조, 결정사항)를 팀에 업로드합니다. 팀원들이 프로젝트 상황을 파악할 수 있습니다.',
-            usage: `> sync_project_context(path=".")`,
-            result: `# ✅ 프로젝트 컨텍스트 동기화 완료
-
-**프로젝트 ID**: my-awesome-project
-**PRD**: ✅
-**CLAUDE.md**: ✅
-**파일 구조**: 156개 파일
-
-팀원들이 이 프로젝트의 컨텍스트를
-조회할 수 있습니다.`
-        },
-        get_project_context: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'get_project_context',
-            desc: '팀에서 공유된 프로젝트 컨텍스트를 조회합니다. 다른 팀원이 작업 중인 프로젝트의 상황을 파악합니다.',
-            usage: `> get_project_context(project_id="my-awesome-project")`,
-            result: `# 프로젝트 컨텍스트: my-awesome-project
-
-**마지막 업데이트**: 2026-01-17
-**업데이트 by**: lead@company.com
-
-## PRD 요약
-사용자 인증 시스템 구현
-- OAuth 2.0 지원 (Google, GitHub)
-- JWT 기반 세션 관리
-- 역할 기반 접근 제어
-
-## 결정사항
-- NextAuth.js 사용 (1월 15일)
-- Prisma ORM 채택 (1월 16일)
-
-## 파일 구조
-\`\`\`
-src/
-├── auth/
-├── components/
-└── lib/
-\`\`\``
-        },
-        team_remove: {
-            badge: 'TEAM',
-            badgeColor: 'bg-violet-100 text-violet-600',
-            title: 'team_remove',
-            desc: '팀에서 멤버를 제거합니다. 오너만 사용할 수 있으며, 제거된 멤버는 더 이상 팀 기능을 사용할 수 없습니다.',
-            usage: `> team_remove(email="former@company.com")`,
-            result: `# ✅ 멤버 제거 완료
-
-**제거된 멤버**: former@company.com
-**현재 멤버 수**: 2명
-
-해당 멤버의 라이선스는 비활성화됩니다.
-시트가 1개 확보되었습니다.`
-        }
-    };
-
-    function openModal(toolName) {
-        const tool = toolData[toolName];
-        if (!tool) return;
-
-        document.getElementById('modalBadge').textContent = tool.badge;
-        document.getElementById('modalBadge').className = `text-xs font-medium px-2 py-1 rounded ${tool.badgeColor}`;
-        document.getElementById('modalTitle').textContent = tool.title;
-        document.getElementById('modalDesc').textContent = tool.desc;
-        document.getElementById('modalUsage').textContent = tool.usage;
-        document.getElementById('modalResult').textContent = tool.result;
-
-        document.getElementById('toolModal').classList.remove('hidden');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeModal() {
-        document.getElementById('toolModal').classList.add('hidden');
-        document.body.style.overflow = '';
-    }
-
-    // Add click handlers to all tool cards
-    document.querySelectorAll('.tool-card').forEach(card => {
-        card.addEventListener('click', () => {
-            const toolName = card.dataset.tool;
-            openModal(toolName);
-        });
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
     });
 
-    // Close modal on Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
+    // Close menu when clicking a link
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+    </script>
+
+    <!-- Tab Script -->
+    <script>
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active from all buttons
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.classList.remove('active');
+                b.classList.add('bg-slate-700');
+            });
+            // Add active to clicked button
+            btn.classList.add('active');
+            btn.classList.remove('bg-slate-700');
+
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            // Show selected tab content
+            const tabId = 'tab-' + btn.dataset.tab;
+            document.getElementById(tabId).classList.add('active');
+        });
     });
     </script>
 </body>
