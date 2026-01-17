@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "allow": [
+      "Bash(pnpm:*)",
+      "Bash(npm:*)",
+      "Bash(npx:*)",
+      "Bash(node:*)",
+      "Bash(tsc:*)",
+      "Bash(vitest:*)",
+      "Bash(jest:*)",
+      "Bash(eslint:*)",
+      "Bash(prettier:*)",
+      "Bash(bash scripts/*)",
+      "Bash(mkdir:*)",
+      "Bash(cat:*)",
+      "Bash(ls:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(echo:*)",
+      "Bash(pwd)",
+      "Bash(cd:*)",
+      "Bash(test:*)",
+      "Bash(date:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git rev-parse:*)",
+      "Read",
+      "Write",
+      "Edit",
+      "MultiEdit",
+      "Grep",
+      "LS"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(rm -rf ~)",
+      "Bash(rm -rf .)",
+      "Bash(sudo:*)",
+      "Bash(chmod 777:*)",
+      "Bash(curl * | bash)",
+      "Bash(wget * | bash)",
+      "Read(.env)",
+      "Read(.env.*)",
+      "Read(**/secrets/**)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p \"$CLAUDE_PROJECT_DIR/.claude/logs\" && echo \"[$(date '+%Y-%m-%d %H:%M:%S')] PreWrite: $CLAUDE_FILE_PATH\" >> \"$CLAUDE_PROJECT_DIR/.claude/logs/tool.log\" 2>/dev/null || true"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "mkdir -p \"$CLAUDE_PROJECT_DIR/.claude/logs\" && echo \"[$(date '+%Y-%m-%d %H:%M:%S')] PreBash\" >> \"$CLAUDE_PROJECT_DIR/.claude/logs/tool.log\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "pnpm format --if-present 2>/dev/null || npx prettier --write \"$CLAUDE_FILE_PATHS\" 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] PostWrite: formatted\" >> \"$CLAUDE_PROJECT_DIR/.claude/logs/tool.log\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/recover-context.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo \"[$(date '+%Y-%m-%d %H:%M:%S')] Session End\" >> \"$CLAUDE_PROJECT_DIR/.claude/logs/sessions.log\" 2>/dev/null || true"
+          },
+          {
+            "type": "command",
+            "command": "echo \"\\n⚠️  Remember: Run 'pnpm gate' before committing!\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ],
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python \"$CLAUDE_PROJECT_DIR/.claude/hooks/save-state.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ]
+  }
+}
