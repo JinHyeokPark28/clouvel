@@ -82,12 +82,19 @@ def _check_tests(project_path: Path) -> tuple[int, list[str]]:
     for search_path in search_paths:
         if not search_path.exists():
             continue
-        for f in search_path.rglob("*"):
-            if f.is_file():
-                for pattern in test_patterns:
-                    if re.match(pattern, f.name, re.IGNORECASE):
-                        test_files.append(str(f.relative_to(project_path)))
-                        break
+        try:
+            for f in search_path.rglob("*"):
+                try:
+                    if f.is_file():
+                        for pattern in test_patterns:
+                            if re.match(pattern, f.name, re.IGNORECASE):
+                                test_files.append(str(f.relative_to(project_path)))
+                                break
+                except (OSError, PermissionError):
+                    # 심볼릭 링크 깨짐, 접근 권한 없음 등 무시
+                    continue
+        except (OSError, PermissionError):
+            continue
 
     return len(test_files), test_files[:5]  # 최대 5개만 반환
 
