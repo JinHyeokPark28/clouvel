@@ -283,7 +283,7 @@ async def init_docs(path: str, project_name: str) -> list[TextContent]:
     docs_path.mkdir(parents=True, exist_ok=True)
 
     templates = {
-        "PRD.md": f"# {project_name} PRD\n\n> 작성일: {datetime.now().strftime('%Y-%m-%d')}\n\n## 한 줄 요약\n\n[작성 필요]\n",
+        "PRD.md": f"# {project_name} PRD\n\n> 작성일: {datetime.now().strftime('%Y-%m-%d')}\n\n## 한 줄 요약\n\n[작성 필요]\n\n## Acceptance (완료 기준)\n\n- [ ] [완료 조건 1]\n- [ ] [완료 조건 2]\n- [ ] [완료 조건 3]\n",
         "ARCHITECTURE.md": f"# {project_name} 아키텍처\n\n## 시스템 구조\n\n[작성 필요]\n",
         "API.md": f"# {project_name} API 스펙\n\n## 엔드포인트\n\n[작성 필요]\n",
         "DATABASE.md": f"# {project_name} DB 스키마\n\n## 테이블\n\n[작성 필요]\n",
